@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"
 
 const appSettings = {
     databaseURL: "https://realtime-database-e0602-default-rtdb.asia-southeast1.firebasedatabase.app/"
@@ -51,6 +51,13 @@ function appendItemToShoppingListEl(item) {
     
     newEl.textContent = itemValue
     
+    newEl.addEventListener("click", function() {
+        let exactLocationOfItemInDB = ref(database, `shoppingList/${itemID}`)
+        
+        // function to remove the item from the database
+        remove(exactLocationOfItemInDB)
+    })
+
     shoppingListEl.append(newEl)
 }
 
